@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ──────────────────────── */
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c055;
+  --dark: #0a0a0a;
+  --dark-100: #111111;
+  --cream: #f5f0e8;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color-scheme: dark;
+}
+
+/* ─── Base Reset ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #f5f0e8;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #e8c055; }
+
+/* ─── Selection ──────────────────────────────────── */
+::selection { background: #c9a84c33; color: #e8c055; }
+
+/* ─── Typography ─────────────────────────────────── */
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; }
+
+/* ─── Utility Classes ────────────────────────────── */
+@layer components {
+  /* Gold Gradient Text */
+  .gold-text {
+    background: linear-gradient(135deg, #c9a84c 0%, #e8c055 50%, #c9a84c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gold Gradient Button */
+  .btn-gold {
+    @apply relative inline-flex items-center gap-2 px-8 py-3.5 font-dm font-medium text-dark bg-gold-gradient rounded-none overflow-hidden transition-all duration-300 tracking-widest text-sm uppercase;
+  }
+  .btn-gold::before {
+    content: '';
+    @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+  }
+  .btn-gold:hover::before { opacity: 0.1; }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,0.35); }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply relative inline-flex items-center gap-2 px-8 py-3.5 font-dm font-medium text-gold border border-gold rounded-none overflow-hidden transition-all duration-300 tracking-widest text-sm uppercase;
+  }
+  .btn-ghost:hover { @apply bg-gold text-dark; }
+  .btn-ghost:hover { box-shadow: 0 12px 40px rgba(201,168,76,0.25); }
+
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  /* Section Padding */
+  .section-pad { @apply py-24 lg:py-32; }
+
+  /* Container */
+  .container-luxury { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+  /* Gold Divider */
+  .gold-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  }
+
+  /* Luxury Tag */
+  .luxury-tag {
+    @apply inline-flex items-center gap-2 font-dm text-xs tracking-[0.3em] uppercase text-gold font-medium;
+  }
+  .luxury-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: #c9a84c;
+  }
+
+  /* Image Overlay */
+  .img-overlay {
+    @apply absolute inset-0 transition-all duration-700;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 60%, transparent 100%);
+  }
+
+  /* Nav link hover */
+  .nav-link {
+    @apply relative font-dm text-sm tracking-widest uppercase text-cream/70 hover:text-gold transition-colors duration-300;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 w-0 h-px bg-gold transition-all duration-300;
+  }
+  .nav-link:hover::after { @apply w-full; }
+  .nav-link.active { @apply text-gold; }
+  .nav-link.active::after { @apply w-full; }
+
+  /* Floating label input */
+  .luxury-input {
+    @apply w-full bg-transparent border-b border-white/20 py-3 text-cream placeholder-white/30 font-dm text-sm focus:outline-none focus:border-gold transition-colors duration-300;
+  }
+  
+  /* Premium Native Date Picker */
+  input[type="date"].luxury-input {
+    position: relative;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23c9a84c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 2rem;
+  }
+  
+  input[type="date"].luxury-input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .luxury-select {
+    @apply w-full bg-dark-200 border border-white/10 py-3 px-4 text-cream/70 font-dm text-sm focus:outline-none focus:border-gold transition-colors duration-300;
+  }
+}
+
+/* ─── AOS Custom ─────────────────────────────────── */
+[data-aos] { pointer-events: none; }
+[data-aos].aos-animate { pointer-events: auto; }
+
+/* ─── Swiper Custom ──────────────────────────────── */
+.swiper-pagination-bullet { background: rgba(201,168,76,0.4) !important; }
+.swiper-pagination-bullet-active { background: #c9a84c !important; }
+.swiper-button-next,
+.swiper-button-prev {
+  color: #c9a84c !important;
+  width: 48px !important;
+  height: 48px !important;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after { font-size: 14px !important; font-weight: 700; }
+.swiper-button-next:hover,
+.swiper-button-prev:hover { background: #c9a84c; color: #0a0a0a !important; }
+
+/* ─── Page Transition ────────────────────────────── */
+.page-enter { opacity: 0; transform: translateY(20px); }
+.page-enter-active { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+.page-exit { opacity: 1; }
+.page-exit-active { opacity: 0; transition: opacity 0.4s ease; }
+
+/* ─── Custom Cursor ──────────────────────────────── */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* ─── Loader ─────────────────────────────────────── */
+.loader-shimmer {
+  background: linear-gradient(90deg, #111 25%, #c9a84c33 50%, #111 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ─── Responsive typography ─────────────────────── */
+.text-display { font-size: clamp(3rem, 8vw, 7rem); line-height: 1.05; }
+.text-headline { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.15; }
+.text-subheadline { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.25; }
